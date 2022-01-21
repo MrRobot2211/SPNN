@@ -3,7 +3,7 @@ import pandas as pd
 import pyvalem
 from pyvalem.formula import Formula
 
-from ..src.formula_mapper import formula_mapper
+from ..formula_mapper import formula_mapper
 
 
 def generate_custom_table(
@@ -184,3 +184,25 @@ def seed_everything(seed=42):
     torch.backends.cudnn.deterministic = True
 
     return None
+
+
+elem_prop = pd.read_csv("/content/input/chemicalProperties.csv")
+
+elem_prop[" Symbol"] = chem_prop[" Symbol"].str.lstrip()
+
+elem_prop_tab = chem_prop[[" Symbol", " Atomic_Number"]]
+
+elem_prop_tab.set_index(" Atomic_Number", inplace=True)
+
+number_symbol_dict = elem_prop_tab[" Symbol"].to_dict()
+
+
+def match_symbol_to_Z(num):
+
+    try:
+
+        return number_symbol_dict[int(num)]
+
+    except:
+
+        return "Unknown"
