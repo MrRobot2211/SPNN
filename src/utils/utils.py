@@ -3,6 +3,7 @@ import pandas as pd
 import pyvalem
 from pyvalem.formula import Formula
 
+from . import FILE_DIR
 from ..formula_mapper import formula_mapper
 
 
@@ -46,7 +47,7 @@ def generate_custom_table(
     df.to_csv(file_path)
 
 
-chem_prop = pd.read_csv("/content/input/chemicalProperties.csv")
+chem_prop = pd.read_csv(f"{FILE_DIR}/input/chemicalProperties.csv")
 
 chem_prop[" Symbol"] = chem_prop[" Symbol"].str.lstrip()
 
@@ -129,7 +130,7 @@ def get_mass_atoms_ratio(name):
         return np.nan
 
 
-ion_prop = pd.read_table("/content/input/ionization_energies_wiki.txt")
+ion_prop = pd.read_table(f"{FILE_DIR}/input/ionization_energies_wiki.txt")
 ion_prop["Symbol"] = ion_prop["Symbol"].str.lstrip()
 
 ion_prop_tab = ion_prop[["Symbol", "1st"]]
@@ -186,7 +187,7 @@ def seed_everything(seed=42):
     return None
 
 
-elem_prop = pd.read_csv("/content/input/chemicalProperties.csv")
+elem_prop = pd.read_csv(f"{FILE_DIR}/input/chemicalProperties.csv")
 
 elem_prop[" Symbol"] = chem_prop[" Symbol"].str.lstrip()
 
